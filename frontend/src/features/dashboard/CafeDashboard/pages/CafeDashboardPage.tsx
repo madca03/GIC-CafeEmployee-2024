@@ -1,9 +1,9 @@
-import {Box, Button, Container, Paper} from "@mui/material";
+import {Box, Button, Paper} from "@mui/material";
+import Grid from "@mui/material/Grid2";
 import React, {useEffect, useState} from "react";
 import CafeFilter, {initialCafeFilter} from "../models/CafeFilter";
 import CafeDashboardFilter from "../components/CafeDashboardFilter/CafeDashboardFilter";
 import CafeDashboardTable from "../components/CafeDashboardTable/CafeDashboardTable";
-import CafeDatabaseModel from "@/services/models/databaseModels/CafeDatabaseModel";
 import CafeService from "@/services/CafeService";
 import GetCafeRequestModel from "@/services/models/requestModels/GetCafeRequestModel";
 import StringUtil from "@/common/utils/StringUtil";
@@ -50,10 +50,12 @@ const CafeDashboardPage = () => {
     return (
         <Box className="cafe-dashboard-page" sx={{ p: 2 }}>
             <Paper elevation={5} sx={{ p: 2, mb: 4 }}>
-                <Button variant="contained" onClick={onAddCafe}>Add Cafe</Button>
-                <CafeDashboardFilter filter={filter}
-                                     onClickSearch={onClickSearch}
-                                     onClickClear={onClickClear}/>
+                <Grid container alignItems="center" justifyContent="space-between">
+                    <CafeDashboardFilter filter={filter}
+                                         onClickSearch={onClickSearch}
+                                         onClickClear={onClickClear}/>
+                    <Button variant="contained" onClick={onAddCafe}>Add Cafe</Button>
+                </Grid>
             </Paper>
 
             <Paper elevation={5}>

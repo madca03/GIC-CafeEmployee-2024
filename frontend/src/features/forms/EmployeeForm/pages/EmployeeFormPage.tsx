@@ -6,7 +6,7 @@ import StringUtil from "@/common/utils/StringUtil";
 import EmployeeService from "@/services/EmployeeService";
 import ModalUtil from "@/common/utils/ModalUtil";
 import InputTextBox from "@/components/InputTextBox/InputTextBox";
-import {Box, Button, FormControl} from "@mui/material";
+import {Box, Button, FormControl, Paper, Stack, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import "./EmployeeFormPage.scss";
 import RadioInput from "@/components/RadioInput/RadioInput";
@@ -106,38 +106,40 @@ const EmployeeFormPage = () => {
     }
 
     return (
-        <Box component="form"
-             className="employee-form-page">
-            <InputTextBox label="Name"
-                          value={formDetails.name}
-                          onInput={onChangeFilter('name')}
-                          errorMessage={formErrorMessage.name}/>
-            <InputTextBox label="Email Address"
-                          value={formDetails.emailAddress}
-                          onInput={onChangeFilter('emailAddress')}
-                          errorMessage={formErrorMessage.emailAddress}/>
-            <InputTextBox label="Phone Number"
-                          value={formDetails.phoneNumber}
-                          onInput={onChangeFilter('phoneNumber')}
-                          errorMessage={formErrorMessage.phoneNumber}/>
-            <RadioInput label="Gender"
-                        value={formDetails.gender}
-                        options={genderOptions}
-                        onInput={onChangeFilter('gender')}
-                        errorMessage={formErrorMessage.gender}/>
-            <SelectInput label="Cafe"
-                         value={formDetails.cafeId}
-                         options={cafeOptions}
-                         onInput={onChangeFilter('cafeId')}
-                         errorMessage={formErrorMessage.cafeId}/>
+        <Paper component="form" elevation={5} sx={{ p: 2 }} className="employee-form-page">
+            <Stack spacing={2}>
+                <Typography variant="h5">{isEdit ? 'Edit' : 'Add'} Employee</Typography>
+                <InputTextBox label="Name"
+                              value={formDetails.name}
+                              onInput={onChangeFilter('name')}
+                              errorMessage={formErrorMessage.name}/>
+                <InputTextBox label="Email Address"
+                              value={formDetails.emailAddress}
+                              onInput={onChangeFilter('emailAddress')}
+                              errorMessage={formErrorMessage.emailAddress}/>
+                <InputTextBox label="Phone Number"
+                              value={formDetails.phoneNumber}
+                              onInput={onChangeFilter('phoneNumber')}
+                              errorMessage={formErrorMessage.phoneNumber}/>
+                <RadioInput label="Gender"
+                            value={formDetails.gender}
+                            options={genderOptions}
+                            onInput={onChangeFilter('gender')}
+                            errorMessage={formErrorMessage.gender}/>
+                <SelectInput label="Cafe"
+                             value={formDetails.cafeId}
+                             options={cafeOptions}
+                             onInput={onChangeFilter('cafeId')}
+                             errorMessage={formErrorMessage.cafeId}/>
 
-            <FormControl>
-                <Grid>
-                    <Button variant="contained" onClick={onAddOrEditEmployee}>{isEdit ? 'Edit' : 'Add'} Employee</Button>
-                    <Button variant="contained" onClick={onClickCancel}>Cancel</Button>
-                </Grid>
-            </FormControl>
-        </Box>
+                <FormControl>
+                    <Stack direction="row" spacing={2}>
+                        <Button variant="contained" onClick={onAddOrEditEmployee}>{isEdit ? 'Edit' : 'Add'} Employee</Button>
+                        <Button variant="contained" onClick={onClickCancel}>Cancel</Button>
+                    </Stack>
+                </FormControl>
+            </Stack>
+        </Paper>
     )
 }
 

@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {
     Button,
     Paper,
+    Stack,
     Table,
     TableBody,
     TableCell,
@@ -106,8 +107,11 @@ const EmployeeDashboardTable = (props: EmployeeDashboardTableProps) => {
                                         {row.cafe}
                                     </TableCell>
                                     <TableCell style={{ width: 160 }}>
-                                        <Button variant="contained" onClick={onEditEmployee(row.employeeStringId)}>Edit</Button>
-                                        <Button variant="contained" onClick={onDeleteEmployee(row.employeeStringId)}>Delete</Button>
+                                        <Stack direction="row" spacing={2}>
+                                            <Button variant="contained" onClick={onEditEmployee(row.employeeStringId)}>Edit</Button>
+                                            <Button variant="contained" onClick={onDeleteEmployee(row.employeeStringId)}>Delete</Button>
+                                        </Stack>
+
                                     </TableCell>
                                 </>
                             )}

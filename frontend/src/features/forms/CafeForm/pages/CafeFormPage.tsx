@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, FormControl, FormHelperText} from "@mui/material";
+import {Box, Button, FormControl, FormHelperText, Paper, Stack, Typography} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import InputTextBox from "@/components/InputTextBox/InputTextBox";
 import "./CafeFormPage.scss";
@@ -134,46 +134,48 @@ const CafeFormPage = () => {
     }
 
     return (
-        <Box component="form"
-             className="cafe-form-page">
-            <InputTextBox label="Name"
-                          value={formDetails.name}
-                          onInput={onChangeFilter('name')}
-                          errorMessage={formErrorMessage.name}/>
-            <InputTextBox label="Description"
-                          value={formDetails.description}
-                          onInput={onChangeFilter('description')}
-                          errorMessage={formErrorMessage.description}/>
-            <InputTextBox label="Location"
-                          value={formDetails.location}
-                          onInput={onChangeFilter('location')}
-                          errorMessage={formErrorMessage.location}/>
+        <Paper component="form" elevation={5} sx={{ p: 2 }} className="cafe-form-page">
+            <Stack spacing={2}>
+                <Typography variant="h5">{isEdit ? 'Edit' : 'Add'} Cafe</Typography>
+                <InputTextBox label="Name"
+                              value={formDetails.name}
+                              onInput={onChangeFilter('name')}
+                              errorMessage={formErrorMessage.name}/>
+                <InputTextBox label="Description"
+                              value={formDetails.description}
+                              onInput={onChangeFilter('description')}
+                              errorMessage={formErrorMessage.description}/>
+                <InputTextBox label="Location"
+                              value={formDetails.location}
+                              onInput={onChangeFilter('location')}
+                              errorMessage={formErrorMessage.location}/>
 
-            <FormControl error={hasFileError} variant="standard">
-                <Button
-                    variant="contained"
-                    component="label"
-                >
-                    Upload File
-                    <input
-                        type="file"
-                        hidden
-                        onChange={onSelectFile}
-                    />
-                </Button>
-                {hasFileError && <FormHelperText>{formErrorMessage.logo}</FormHelperText>}
-            </FormControl>
+                <FormControl error={hasFileError} variant="standard">
+                    <Button
+                        variant="contained"
+                        component="label"
+                    >
+                        Upload File
+                        <input
+                            type="file"
+                            hidden
+                            onChange={onSelectFile}
+                        />
+                    </Button>
+                    {hasFileError && <FormHelperText>{formErrorMessage.logo}</FormHelperText>}
+                </FormControl>
 
-            {file !== null && <img style={{ width: '400px' }} src={URL.createObjectURL(file)}/>}
-            {!StringUtil.isNullOrEmpty(formDetails.logo) && file === null && <img src={`data:image/png;base64,${formDetails.logo}`}/>}
+                {file !== null && <img style={{ width: '400px' }} src={URL.createObjectURL(file)}/>}
+                {!StringUtil.isNullOrEmpty(formDetails.logo) && file === null && <img src={`data:image/png;base64,${formDetails.logo}`}/>}
 
-            <FormControl>
-                <Grid>
-                    <Button variant="contained" onClick={onAddOrEditCafe}>{isEdit ? 'Edit' : 'Add'} Cafe</Button>
-                    <Button variant="contained" onClick={onClickCancel}>Cancel</Button>
-                </Grid>
-            </FormControl>
-        </Box>
+                <FormControl>
+                    <Stack direction="row" spacing={2}>
+                        <Button variant="contained" onClick={onAddOrEditCafe}>{isEdit ? 'Edit' : 'Add'} Cafe</Button>
+                        <Button variant="contained" onClick={onClickCancel}>Cancel</Button>
+                    </Stack>
+                </FormControl>
+            </Stack>
+        </Paper>
     )
 }
 

@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import {
     Button,
     Paper,
+    Stack,
     Table,
     TableBody,
     TableCell,
@@ -96,8 +97,10 @@ const CafeDashboardTable = (props: CafeDashboardTableProps) => {
                                 {row.location}
                             </TableCell>
                             <TableCell style={{ width: 200 }}>
-                                <Button variant="contained" onClick={onEditCafe(row.id)}>Edit</Button>
-                                <Button variant="contained" onClick={onDeleteCafe(row.id)}>Delete</Button>
+                                <Stack direction="row" spacing={2}>
+                                    <Button variant="contained" onClick={onEditCafe(row.id)}>Edit</Button>
+                                    <Button variant="contained" onClick={onDeleteCafe(row.id)}>Delete</Button>
+                                </Stack>
                             </TableCell>
                         </TableRow>
                     ))}
