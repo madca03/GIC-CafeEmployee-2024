@@ -1,7 +1,9 @@
 import React from "react";
-import {AppBar, Box, Toolbar, Typography} from "@mui/material";
-import {Link, Outlet} from "react-router-dom";
+import {AppBar, Box, Toolbar} from "@mui/material";
+import {Outlet} from "react-router-dom";
 import AlertDialog from "@/components/AlertDialog/AlertDialog";
+import NavItem from "@/components/NavItem/NavItem";
+import "./RootLayout.scss";
 
 const RootLayout = () => {
     return (
@@ -9,18 +11,13 @@ const RootLayout = () => {
             <Box sx={{flexGrow: 1}}>
                 <AppBar position="static">
                     <Toolbar>
-                        <Typography variant="h6" component="div">
-                            <Link to="/">Cafe</Link>
-                        </Typography>
-
-                        <Typography variant="h6" component="div">
-                            <Link to="/employees">Employees</Link>
-                        </Typography>
+                        <NavItem linkTo="/" text="Cafe"/>
+                        <NavItem linkTo="/employees" text="Employees"/>
                     </Toolbar>
                 </AppBar>
             </Box>
 
-            <main>
+            <main className="root-layout__content">
                 <Outlet/>
             </main>
 

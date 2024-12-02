@@ -1,4 +1,4 @@
-import {Button, Container} from "@mui/material";
+import {Box, Button, Container, Paper} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import EmployeeDashboardTable
     from "@/features/dashboard/EmployeeDashboard/components/EmployeeDashboardTable/EmployeeDashboardTable";
@@ -37,12 +37,17 @@ const EmployeeDashboardPage = () => {
     }
 
     return (
-        <Container className="employee-dashboard-page">
-            {!showEmployeesOfCafe && <Button variant="contained" onClick={onAddEmployee}>Add Employee</Button>}
-            <EmployeeDashboardTable employees={employees}
-                                    onDeleteEmployee={onDeleteEmployee}
-                                    cafeId={cafeId}/>
-        </Container>
+        <Box className="employee-dashboard-page" sx={{ p: 2 }}>
+            {!showEmployeesOfCafe && <Box sx={{ mb: 2 }}>
+                <Button variant="contained" onClick={onAddEmployee}>Add Employee</Button>
+            </Box>}
+
+            <Paper elevation={5}>
+                <EmployeeDashboardTable employees={employees}
+                                        onDeleteEmployee={onDeleteEmployee}
+                                        cafeId={cafeId}/>
+            </Paper>
+        </Box>
     )
 }
 

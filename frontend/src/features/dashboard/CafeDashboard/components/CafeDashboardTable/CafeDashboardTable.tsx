@@ -80,22 +80,22 @@ const CafeDashboardTable = (props: CafeDashboardTableProps) => {
                             : props.cafes
                     ).map((row) => (
                         <TableRow key={row.id}>
-                            <TableCell component="th" scope="row">
+                            <TableCell style={{ width: 150 }}>
                                 {!StringUtil.isNullOrEmpty(row.logo ?? '') && <CafeLogo url={row.logo!}/>}
                             </TableCell>
-                            <TableCell style={{ width: 160 }}>
+                            <TableCell>
                                 {row.name}
                             </TableCell>
-                            <TableCell style={{ width: 160 }}>
+                            <TableCell>
                                 {row.description}
                             </TableCell>
-                            <TableCell style={{ width: 160 }}>
+                            <TableCell style={{ width: 100 }}>
                                 <Link to={`/cafe/${row.cafeStringId}/employees`}>Employees</Link>
                             </TableCell>
-                            <TableCell style={{ width: 160 }}>
+                            <TableCell>
                                 {row.location}
                             </TableCell>
-                            <TableCell style={{ width: 160 }}>
+                            <TableCell style={{ width: 200 }}>
                                 <Button variant="contained" onClick={onEditCafe(row.id)}>Edit</Button>
                                 <Button variant="contained" onClick={onDeleteCafe(row.id)}>Delete</Button>
                             </TableCell>

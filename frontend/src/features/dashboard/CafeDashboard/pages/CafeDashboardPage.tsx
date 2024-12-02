@@ -1,4 +1,4 @@
-import {Button, Container} from "@mui/material";
+import {Box, Button, Container, Paper} from "@mui/material";
 import React, {useEffect, useState} from "react";
 import CafeFilter, {initialCafeFilter} from "../models/CafeFilter";
 import CafeDashboardFilter from "../components/CafeDashboardFilter/CafeDashboardFilter";
@@ -47,13 +47,18 @@ const CafeDashboardPage = () => {
     }
 
     return (
-        <Container className="cafe-dashboard-page">
-            <Button variant="contained" onClick={onAddCafe}>Add Cafe</Button>
-            <CafeDashboardFilter filter={filter}
-                                 onClickSearch={onClickSearch}
-                                 onClickClear={onClickClear}/>
-            <CafeDashboardTable cafes={cafes} onDeleteCafe={onDeleteCafe}/>
-        </Container>
+        <Box className="cafe-dashboard-page" sx={{ p: 2 }}>
+            <Paper elevation={5} sx={{ p: 2, mb: 4 }}>
+                <Button variant="contained" onClick={onAddCafe}>Add Cafe</Button>
+                <CafeDashboardFilter filter={filter}
+                                     onClickSearch={onClickSearch}
+                                     onClickClear={onClickClear}/>
+            </Paper>
+
+            <Paper elevation={5}>
+                <CafeDashboardTable cafes={cafes} onDeleteCafe={onDeleteCafe}/>
+            </Paper>
+        </Box>
     )
 }
 

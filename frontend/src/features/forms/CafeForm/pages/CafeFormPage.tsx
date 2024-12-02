@@ -35,7 +35,7 @@ const CafeFormPage = () => {
     }, []);
 
     const onClickCancel = () => {
-        if (isEdit && isDirty) {
+        if (isDirty) {
             ModalUtil.showConfirmation({
                 title: "Confirm",
                 description: "There are unsaved changes. Are you sure you want to discard them?",
