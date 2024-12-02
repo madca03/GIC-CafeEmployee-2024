@@ -1,8 +1,8 @@
 export default {
     GetCafes: '/api/cafes',
     CreateCafe: '/api/cafe',
-    DeleteCafe: (cafeId: number) => `/api/cafe/${cafeId}`,
-    UpdateCafe: (cafeId: number) => `/api/cafe/${cafeId}`,
+    DeleteCafe: (cafeId: string) => `/api/cafe/${cafeId}`,
+    UpdateCafe: (cafeId: string) => `/api/cafe/${cafeId}`,
     GetEmployees: '/api/employees',
     GetEmployee: '/api/employee',
     CreateEmployee: '/api/employee',

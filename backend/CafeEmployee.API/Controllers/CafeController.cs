@@ -13,6 +13,8 @@ public class CafeController : BaseController
 {
     private readonly IMediator _mediator;
     private readonly IMapper _mapper;
+    private const long MaxFileSize = 2 * 1024 * 1024; // 2MB in bytes
+    
     
     public CafeController(IMediator mediator,
         IMapper mapper)
@@ -22,9 +24,21 @@ public class CafeController : BaseController
     }
 
     [HttpPost("/api/cafe")]
-    public async Task<IActionResult> CreateCafe([FromBody] CreateOrUpdateCafeRequestModel req)
+    public async Task<IActionResult> CreateCafe([FromForm] CreateOrUpdateCafeRequestModel req)
     {
+        long fileLength = req.Logo?.Length ?? 0;
+        if (fileLength > MaxFileSize) throw new Exception("File size should be at most 2MB");
+
+        using var memoryStream = new MemoryStream();
+        
         CreateCafeCommand command = _mapper.Map<CreateCafeCommand>(req);
+
+        if (fileLength > 0)
+        {
+            await req.Logo.CopyToAsync(memoryStream);
+            command.LogoFileData = memoryStream.ToArray();
+            command.LogoFileName = req.Logo.FileName;
+        }
         Cafe createdCafe = await _mediator.Send(command);
         return GenericSuccess(new BaseDataAPIResponseModel(createdCafe));
     }
@@ -37,17 +51,29 @@ public class CafeController : BaseController
         return GenericSuccess(new BaseDataAPIResponseModel(cafes));
     }
 
-    [HttpPut("/api/cafe/{id:int}")]
-    public async Task<IActionResult> UpdateCafe([FromRoute] int id, [FromBody] CreateOrUpdateCafeRequestModel req)
+    [HttpPut("/api/cafe/{id}")]
+    public async Task<IActionResult> UpdateCafe([FromRoute] string id, [FromForm] CreateOrUpdateCafeRequestModel req)
     {
+        long fileLength = req.Logo?.Length ?? 0;
+        if (fileLength > MaxFileSize) throw new Exception("File size should be at most 2MB");
+
+        using var memoryStream = new MemoryStream();
+        
         UpdateCafeCommand command = _mapper.Map<UpdateCafeCommand>(req);
         command.Id = id;
+        
+        if (fileLength > 0)
+        {
+            await req.Logo.CopyToAsync(memoryStream);
+            command.LogoFileData = memoryStream.ToArray();
+            command.LogoFileName = req.Logo.FileName;
+        }
         Cafe updatedCafe = await _mediator.Send(command);
         return GenericSuccess(new BaseDataAPIResponseModel(updatedCafe));
     }
 
-    [HttpDelete("/api/cafe/{id:int}")]
-    public async Task<IActionResult> DeleteCafe([FromRoute] int id)
+    [HttpDelete("/api/cafe/{id}")]
+    public async Task<IActionResult> DeleteCafe([FromRoute] string id)
     {
         DeleteCafeCommand command = new DeleteCafeCommand { Id = id };
         bool success = await _mediator.Send(command);

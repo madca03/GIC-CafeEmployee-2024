@@ -11,5 +11,5 @@ public class CreateOrUpdateCafeRequestModel
     [Required]
     public string Location { get; set; }
 
-    public string Logo { get; set; }
+    public IFormFile Logo { get; set; }
 }

@@ -45,11 +45,11 @@ const CafeDashboardTable = (props: CafeDashboardTableProps) => {
         setPage(0);
     };
 
-    const onEditCafe = (cafeId: number) => () => {
+    const onEditCafe = (cafeId: string) => () => {
         navigate(`/cafe/${cafeId}`);
     }
 
-    const onDeleteCafe = (cafeId: number) => () => {
+    const onDeleteCafe = (cafeId: string) => () => {
         ModalUtil.showConfirmation({
             title: "Confirm",
             description: "Are you sure you want to delete this cafe?",
@@ -90,7 +90,7 @@ const CafeDashboardTable = (props: CafeDashboardTableProps) => {
                                 {row.description}
                             </TableCell>
                             <TableCell style={{ width: 100 }}>
-                                <Link to={`/cafe/${row.cafeStringId}/employees`}>Employees</Link>
+                                <Link to={`/cafe/${row.id}/employees`}>Employees</Link>
                             </TableCell>
                             <TableCell>
                                 {row.location}

@@ -25,6 +25,7 @@ public partial class AppMasterDBContext : DbContext
             entity.Property(e => e.Description).HasMaxLength(256);
             entity.Property(e => e.Location).HasMaxLength(100);
             entity.Property(e => e.Logo).HasMaxLength(500);
+            entity.Property(e => e.LogoFileName).HasMaxLength(100);
             entity.Property(e => e.Name).HasMaxLength(10);
         });
 

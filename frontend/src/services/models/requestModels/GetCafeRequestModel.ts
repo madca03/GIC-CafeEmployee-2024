@@ -1,6 +1,6 @@
 interface GetCafeRequestModel {
     location?: string;
-    id?: number;
+    id?: string;
 }
 
 export default GetCafeRequestModel;

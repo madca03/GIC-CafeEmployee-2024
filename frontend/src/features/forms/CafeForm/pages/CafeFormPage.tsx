@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Box, Button, FormControl} from "@mui/material";
+import {Box, Button, FormControl, FormHelperText} from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import InputTextBox from "@/components/InputTextBox/InputTextBox";
 import "./CafeFormPage.scss";
@@ -10,25 +10,31 @@ import CafeFormError, {initialCafeFormError} from "@/features/forms/CafeForm/mod
 import CafeService from "@/services/CafeService";
 import StringUtil from "@/common/utils/StringUtil";
 import ModalUtil from "@/common/utils/ModalUtil";
+import CreateCafeRequestModel from "@/services/models/requestModels/CreateCafeRequestModel";
+import UpdateCafeRequestModel from "@/services/models/requestModels/UpdateCafeRequestModel";
 
 const CafeFormPage = () => {
     const [formDetails, setFormDetails] = useState<CafeFormModel>(initialCafeFormModel);
     const [formErrorMessage, setFormErrorMessage] = useState<CafeFormError>(initialCafeFormError);
     const [isDirty, setIsDirty] = useState(false);
     const [isEdit, setIsEdit] = useState(false);
+    const [file, setFile] = useState<File | null>(null);
     const navigate = useNavigate();
     const {cafeId} = useParams();
+
+    const hasFileError = !StringUtil.isNullOrEmpty(formErrorMessage.logo);
 
     useEffect(() => {
         if (!StringUtil.isNullOrEmpty(cafeId)) {
             setIsEdit(true);
-            CafeService.getCafes({id: +cafeId!})
+            CafeService.getCafes({id: cafeId!})
                 .then((res) => {
                     const cafe = res.data[0];
                     setFormDetails({
                         name: cafe.name,
                         location: cafe.location,
-                        description: cafe.description
+                        description: cafe.description,
+                        logo: cafe.logo
                     })
                 })
         }
@@ -59,8 +65,26 @@ const CafeFormPage = () => {
             return;
         }
 
+        if (file != null) {
+            const fileSizeInBytes = file!.size;
+            const fileSizeInMB = (fileSizeInBytes / (1024 * 1024))
+
+            if (fileSizeInMB > 2) {
+                setFormErrorMessage((prevState) => ({...prevState, logo: "File should be at most 2 MB"}));
+                return;
+            }
+        }
+
         if (isEdit) {
-            CafeService.updateCafe(+cafeId!, formDetails)
+            const req: UpdateCafeRequestModel = {
+                name: formDetails.name,
+                location: formDetails.location,
+                description: formDetails.description
+            }
+
+            if (file != null) req.logo = file;
+
+            CafeService.updateCafe(cafeId!, req)
                 .then(() => {
                     // show success alert
                     setTimeout(() => {
@@ -69,7 +93,14 @@ const CafeFormPage = () => {
                 })
         }
         else {
-            CafeService.createCafe(formDetails)
+            const req: CreateCafeRequestModel = {
+                name: formDetails.name,
+                location: formDetails.location,
+                description: formDetails.description,
+                logo: file
+            }
+
+            CafeService.createCafe(req)
                 .then(() => {
                     // show success alert
                     setTimeout(() => {
@@ -94,6 +125,14 @@ const CafeFormPage = () => {
         }
     }
 
+    const onSelectFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const selectedFile = e.target.files![0];
+
+        if (selectedFile) {
+            setFile(selectedFile!);
+        }
+    }
+
     return (
         <Box component="form"
              className="cafe-form-page">
@@ -109,6 +148,24 @@ const CafeFormPage = () => {
                           value={formDetails.location}
                           onInput={onChangeFilter('location')}
                           errorMessage={formErrorMessage.location}/>
+
+            <FormControl error={hasFileError} variant="standard">
+                <Button
+                    variant="contained"
+                    component="label"
+                >
+                    Upload File
+                    <input
+                        type="file"
+                        hidden
+                        onChange={onSelectFile}
+                    />
+                </Button>
+                {hasFileError && <FormHelperText>{formErrorMessage.logo}</FormHelperText>}
+            </FormControl>
+
+            {file !== null && <img style={{ width: '400px' }} src={URL.createObjectURL(file)}/>}
+            {!StringUtil.isNullOrEmpty(formDetails.logo) && file === null && <img src={`data:image/png;base64,${formDetails.logo}`}/>}
 
             <FormControl>
                 <Grid>

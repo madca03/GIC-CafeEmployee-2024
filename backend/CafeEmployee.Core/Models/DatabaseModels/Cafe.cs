@@ -11,6 +11,8 @@ public partial class Cafe
     public string Description { get; set; } = null!;
 
     public string? Logo { get; set; }
+    public string? LogoFileName { get; set; }
 
+    public byte[]? LogoFileData { get; set; }
     public string Location { get; set; } = null!;
 }

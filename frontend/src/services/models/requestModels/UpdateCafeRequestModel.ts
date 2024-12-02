@@ -2,7 +2,7 @@ interface UpdateCafeRequestModel {
     name: string,
     description: string,
     location: string,
-    logo?: string
+    logo?: File
 }
 
 export default UpdateCafeRequestModel;

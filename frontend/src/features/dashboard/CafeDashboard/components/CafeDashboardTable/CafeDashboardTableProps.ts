@@ -1,8 +1,8 @@
-import CafeDatabaseModel from "@/services/models/databaseModels/CafeDatabaseModel";
+import CafeResultModel from "@/services/models/responseModels/CafeResultModel";
 
 interface CafeDashboardTableProps {
-    cafes: CafeDatabaseModel[],
-    onDeleteCafe: (cafeId: number) => void;
+    cafes: CafeResultModel[],
+    onDeleteCafe: (cafeId: string) => void;
 }
 
 export default CafeDashboardTableProps;

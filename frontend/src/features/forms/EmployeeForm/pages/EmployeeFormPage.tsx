@@ -14,6 +14,7 @@ import CafeDatabaseModel from "@/services/models/databaseModels/CafeDatabaseMode
 import CafeService from "@/services/CafeService";
 import SelectInput from "@/components/SelectInput/SelectInput";
 import ValidationUtil from "@/common/utils/ValidationUtil";
+import CafeResultModel from "@/services/models/responseModels/CafeResultModel";
 
 const genderOptions = [
     {value: "female", text: "Female"},
@@ -25,11 +26,11 @@ const EmployeeFormPage = () => {
     const [formErrorMessage, setFormErrorMessage] = useState<EmployeeFormError>(initialEmployeeFormError);
     const [isDirty, setIsDirty] = useState<boolean>(false);
     const [isEdit, setIsEdit] = useState<boolean>(false);
-    const [cafes, setCafes] = useState<CafeDatabaseModel[]>([]);
+    const [cafes, setCafes] = useState<CafeResultModel[]>([]);
     const navigate = useNavigate();
     const {employeeId} = useParams();
 
-    const cafeOptions = cafes.map(x => ({ value: x.cafeStringId, text: x.name }));
+    const cafeOptions = cafes.map(x => ({ value: x.id, text: x.name }));
 
     useEffect(() => {
         if (!StringUtil.isNullOrEmpty(employeeId)) {

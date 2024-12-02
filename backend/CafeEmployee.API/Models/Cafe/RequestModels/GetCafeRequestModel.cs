@@ -11,5 +11,5 @@ public class GetCafeRequestModel
 
     [JsonProperty("id")]
     [JsonPropertyName("id")]
-    public int? Id { get; set; }
+    public string Id { get; set; }
 }

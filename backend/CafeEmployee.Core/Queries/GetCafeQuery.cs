@@ -1,10 +1,10 @@
-﻿using CafeEmployee.Core.Models.DatabaseModels;
+﻿using CafeEmployee.Core.Models.ResultModels;
 using MediatR;
 
 namespace CafeEmployee.Core.Queries;
 
-public class GetCafeQuery : IRequest<IReadOnlyList<Cafe>>
+public class GetCafeQuery : IRequest<IReadOnlyList<CafeResultModel>>
 {
-    public int? Id { get; set; }
+    public string Id { get; set; }
     public string Location { get; set; }
 }

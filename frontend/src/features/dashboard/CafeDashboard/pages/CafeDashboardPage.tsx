@@ -8,10 +8,11 @@ import CafeService from "@/services/CafeService";
 import GetCafeRequestModel from "@/services/models/requestModels/GetCafeRequestModel";
 import StringUtil from "@/common/utils/StringUtil";
 import {useNavigate} from "react-router-dom";
+import CafeResultModel from "@/services/models/responseModels/CafeResultModel";
 
 const CafeDashboardPage = () => {
     const [filter, setFilter] = useState<CafeFilter>(initialCafeFilter);
-    const [cafes, setCafes] = useState<CafeDatabaseModel[]>([]);
+    const [cafes, setCafes] = useState<CafeResultModel[]>([]);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -39,7 +40,7 @@ const CafeDashboardPage = () => {
         navigate("/cafe/add");
     }
 
-    const onDeleteCafe = (cafeId: number) => {
+    const onDeleteCafe = (cafeId: string) => {
         CafeService.deleteCafe(cafeId)
             .then(() => {
                setCafes((prevState) => (prevState.filter(x => x.id !== cafeId)));

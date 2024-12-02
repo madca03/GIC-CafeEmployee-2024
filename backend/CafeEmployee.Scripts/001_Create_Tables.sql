@@ -27,6 +27,8 @@ CREATE TABLE [dbo].[Cafe] (
     [Name] nvarchar(10) NOT NULL,
     [Description] nvarchar(256) NOT NULL,
     [Logo] nvarchar(500) NULL,
+    [LogoFileName] nvarchar(100) NULL,
+    [LogoFileData] varbinary(max) NULL,
     [Location] nvarchar(100) NOT NULL,
     CONSTRAINT PK_Cafe PRIMARY KEY ([Id]),
     CONSTRAINT UQ_Cafe_CafeId UNIQUE ([CafeStringId])

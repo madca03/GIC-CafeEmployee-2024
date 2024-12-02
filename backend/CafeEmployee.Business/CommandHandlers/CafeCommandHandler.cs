@@ -41,7 +41,9 @@ public class CafeCommandHandler : IRequestHandler<CreateCafeCommand, Cafe>,
             CafeStringId = Guid.NewGuid().ToString(),
             Name = request.Name,
             Location = request.Location,
-            Description = request.Description
+            Description = request.Description,
+            LogoFileName = request.LogoFileName,
+            LogoFileData = request.LogoFileData
         };
 
         _context.Add(newCafe);
@@ -58,13 +60,18 @@ public class CafeCommandHandler : IRequestHandler<CreateCafeCommand, Cafe>,
             throw new Exception(errors);
         }
 
-        Cafe cafeToUpdate = _context.Cafe.FirstOrDefault(x => x.Id == request.Id);
+        Cafe cafeToUpdate = _context.Cafe.FirstOrDefault(x => x.CafeStringId == request.Id);
         if (cafeToUpdate == null) throw new Exception($"Cafe with id {request.Id} not found.");
 
         cafeToUpdate.Name = request.Name;
         cafeToUpdate.Description = request.Description;
         cafeToUpdate.Location = request.Location;
-        cafeToUpdate.Logo = request.Logo;
+
+        if (!string.IsNullOrEmpty(request.LogoFileName))
+        {
+            cafeToUpdate.LogoFileName = request.LogoFileName;
+            cafeToUpdate.LogoFileData = request.LogoFileData;
+        }
 
         _context.SaveChanges();
         return cafeToUpdate;
@@ -81,10 +88,10 @@ public class CafeCommandHandler : IRequestHandler<CreateCafeCommand, Cafe>,
 
         using (var scope = new TransactionScope())
         {
-            Cafe cafeToDelete = _context.Cafe.FirstOrDefault(x => x.Id == request.Id);
+            Cafe cafeToDelete = _context.Cafe.FirstOrDefault(x => x.CafeStringId == request.Id);
             if (cafeToDelete == null) throw new Exception($"Cafe with id {request.Id} not found.");
 
-            var employees = _context.CafeEmployee.Where(x => x.CafeId == request.Id).ToList();
+            var employees = _context.CafeEmployee.Where(x => x.CafeId == cafeToDelete.Id).ToList();
         
             _context.CafeEmployee.RemoveRange(employees);
             _context.SaveChanges();

@@ -1,13 +1,15 @@
 interface CafeFormModel {
     name: string,
     description: string,
-    location: string
+    location: string,
+    logo: string
 }
 
 export const initialCafeFormModel: CafeFormModel = {
     name: "",
     description: "",
-    location: ""
+    location: "",
+    logo: ""
 }
 
 export default CafeFormModel;
