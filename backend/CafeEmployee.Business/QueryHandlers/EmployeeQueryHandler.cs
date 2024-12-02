@@ -47,7 +47,7 @@ public class EmployeeQueryHandler : IRequestHandler<GetEmployeeQuery, IReadOnlyL
             Cafe = x.Cafe == null ? null : x.Cafe.Name
         });
 
-        return await res.ToListAsync(cancellationToken);
+        return (await res.ToListAsync(cancellationToken)).OrderByDescending(x => x.DaysWorked).ToList();
     }
 
     public async Task<EmployeeFormDetailResultModel> Handle(GetEmployeeDBQuery request, CancellationToken cancellationToken)

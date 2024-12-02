@@ -2,6 +2,8 @@
 bin/
 obj/
 
+backend/**/Logs/*
+
 # User-specific files
 *.user
 *.rsuser
