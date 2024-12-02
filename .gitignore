@@ -1,0 +1,99 @@
+# Ignore build outputs
+bin/
+obj/
+
+# User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Auto-generated files
+Generated\*
+
+# Logs
+*.log
+
+# NuGet packages
+*.nupkg
+*.snupkg
+packages/
+.nuget/
+
+# Build directories
+**/bin/
+**/obj/
+
+# Rider files
+.idea/
+*.sln.iml
+
+# Visual Studio Code files
+.vscode/
+.history/
+
+# Visual Studio files
+.vs/
+.vscode/
+
+# Dotnet test generated files
+TestResults/
+*.trx
+*.coverage
+*.coveragexml
+*.datacollector
+
+# Resharper settings
+_ReSharper*/
+*.DotSettings.user
+
+# Localization
+*.localhistory/
+
+# macOS files
+.DS_Store
+
+# Windows files
+Thumbs.db
+desktop.ini
+
+# Temporary files
+~$*
+*.tmp
+*.temp
+*.bak
+*.swp
+
+# JetBrains Rider files
+.idea/
+
+# Uncomment if using Docker
+# docker-compose.override.yml
+# docker-compose*.yml
+# Dockerfile
+
+# Uncomment if using Azure Pipelines
+# .azure-pipelines/
+
+# dependencies
+frontend/node_modules
+frontend/.pnp
+frontend/.pnp.js
+
+# testing
+frontend/coverage
+
+# production
+frontend/build
+
+# misc
+frontend/.DS_Store
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
